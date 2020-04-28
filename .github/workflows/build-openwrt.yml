@@ -15,6 +15,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - '.config'
 #  schedule:
 #    - cron: 0 8 * * 5
   watch:
@@ -24,7 +26,8 @@ env:
   REPO_URL: https://github.com/drinmit/lede
   REPO_BRANCH: master
   CONFIG_FILE: .config
-  DIY_SH: diy.sh
+  DIY_P1_SH: diy_part1.sh
+  DIY_P2_SH: diy_part2.sh 
   SSH_ACTIONS: true
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
@@ -57,6 +60,13 @@ jobs:
     - name: Clone source code
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
 
+    - name: Load custom feeds
+      run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        ../$DIY_P2_SH
+
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -67,9 +77,9 @@ jobs:
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_SH
+        chmod +x $DIY_P1_SH
         cd openwrt
-        ../$DIY_SH
+        ../$DIY_P1_SH
 
     - name: SSH connection to Actions
       uses: P3TERX/debugger-action@master
