@@ -25,6 +25,7 @@ on:
 env:
   REPO_URL: https://github.com/drinmit/lede
   REPO_BRANCH: master
+  FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy_part1.sh
   DIY_P2_SH: diy_part2.sh 
