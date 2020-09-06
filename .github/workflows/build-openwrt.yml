@@ -26,7 +26,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
+# CONFIG_FILE: .config
   DIY_P1_SH: diy_part1.sh
   DIY_P2_SH: diy_part2.sh 
   SSH_ACTIONS: true
@@ -78,13 +78,13 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Load custom configuration
-      run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+#    - name: Load custom configuration
+#      run: |
+#        [ -e files ] && mv files openwrt/files
+#        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+#        chmod +x $DIY_P2_SH
+#        cd openwrt
+#        $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: SSH connection to Actions
       uses: P3TERX/debugger-action@main
