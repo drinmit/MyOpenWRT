@@ -12,4 +12,4 @@
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # Add a feed source
-sed -i '$a src-git packages https://github.com/Lienol/openwrt-packages.git;dev-master' feeds.conf.default
+#sed -i '$a src-git packages https://github.com/Lienol/openwrt-packages.git;dev-master' feeds.conf.default
